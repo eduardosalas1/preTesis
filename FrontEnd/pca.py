@@ -6,20 +6,25 @@ def vectorPCA(path):
 
     blue,green,red = cv2.split(img)
 
-    pca = PCA(50)
+    df_blue = blue/255
+    df_green = green/255
+    df_red = red/255
+    
+    pcab = PCA(n_component = 50)
+    blue_transformed = pcab.fit_transform(df_blue)
+    pcag = PCA(n_component = 50)
+    green_transformed = pcag.fit_transform(df_green)
+    pcar = PCA(n_component = 50)
+    red_transformed = pcar.fit_transform(df_red)
 
-    blue_transformed = pca.fit_transform(blue)
-    green_transformed = pca.fit_transform(green)
-    red_transformed = pca.fit_transform(red)
-
-    return [blue_transformed,green_transformed,red_transformed]
+    return [blue_transformed,green_transformed,red_transformed,pcab,pcag,pcar]
 
 def reversePCA(rgb):
-    pca = PCA(50)
-    blue = pca.inverse_transform(rgb[0])
-    green = pca.inverse_transform(rgb[1])
-    red = pca.inverse_transform(rgb[2])
+    
+    blue = rgb[3].inverse_transform(rgb[0])
+    green = rgb[4].inverse_transform(rgb[1])
+    red = rgb[5].inverse_transform(rgb[2])
 
-    img = cv2.merge(blue,green,red)
+    img = cv2.merge((blue,green,red))
 
     return img
