@@ -27,8 +27,7 @@ def home():
 @app.route('/result', methods=['GET', 'POST'])
 def result():
     # Check if a valid image file was uploaded
-
-
+    
     path = '/home/elguille/mejoradoPRETESIS/BackEnd/Data/Test_1'
     datapath = '/home/elguille/mejoradoPRETESIS/BackEnd/Data/Collection/lfw/'
     
